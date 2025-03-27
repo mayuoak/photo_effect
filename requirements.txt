@@ -1,0 +1,10 @@
+flask 
+flask-cors 
+diffusers 
+torch 
+torchvision 
+transformers 
+numpy 
+pillow 
+opencv-python 
+flask-ngrok

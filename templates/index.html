@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghiblify Your Image</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Upload an Image & Get Ghibli Magic!</h2>
+        <input type="file" id="imageInput">
+        <button onclick="uploadImage()">Generate</button>
+        <h4>Result:</h4>
+        <img id="outputImage" src="" class="preview">
+    </div>
+
+    <script>
+        function uploadImage() {
+            let input = document.getElementById("imageInput").files[0];
+            if (!input) {
+                alert("Please upload an image!");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("file", input);
+
+            fetch("/upload", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                document.getElementById("outputImage").src = URL.createObjectURL(blob);
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>
